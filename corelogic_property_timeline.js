@@ -350,6 +350,37 @@
                 .owner-start-marker {
                     fill: rgba(255, 255, 255, 0.02);
                 }
+				
+				svg.property-events .recordTooltip {
+					fill: #007faa;
+					stroke: #007faa;
+					stroke-width: 1px;
+				}
+				
+				svg.property-events .valueTooltip {
+					fill: white;
+					stroke: white;
+					stroke-width: 1px;
+				}
+				
+				svg.property-events .valueTextIcon {
+					text-anchor: end;
+					font-weight: bold;
+					font-family: FontAwesome;
+				}
+				
+				svg.property-events .valueText {
+					text-anchor: end;
+					font-weight: bold;
+					font-family: Lato;
+				}
+				
+				text.recordCloseText {
+					font-weight: bold;
+					font-size: large;
+				}
+
+				
                 .tip {
                     position: absolute;
                     box-sizing: border-box;
