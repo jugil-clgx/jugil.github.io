@@ -1069,9 +1069,7 @@
 					}
 				})
 				.on('mouseout', function(d) {		
-					vis.ui.tip.transition()		
-					.duration(3000)		
-					.style("opacity", 0);
+					vis.delayHideTip
 				})
 				;
 		},
