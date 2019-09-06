@@ -372,14 +372,12 @@
 				svg.property-events .valueText {
 					text-anchor: start;
 					font-weight: bold;
-					font-family: Lato;
 				}
 				
 				text.recordCloseText {
 					font-weight: bold;
 					font-size: large;
 				}
-
 				
                 .tip {
                     position: absolute;
@@ -1065,8 +1063,23 @@
 				})			
 				.on('mouseover', function(d) {
 					if (d[columns.event_hover]) {
-						vis.showTip(d[columns.event_hover]);
-					}
+                        vis.cancelHideTip()
+                        vis.ui.tip.innerHTML = d[columns.event_hover]
+                        const tip = vis.ui.tip.getBoundingClientRect()
+                        const pane = vis.ui.pane.getBoundingClientRect()
+                        let left = d3.event.pageX + 10
+                        let top = d3.event.pageY - 10 - tip.height
+                        if (left + tip.width > pane.right - 10) {
+                            left = pane.right - tip.width - 10
+                        }
+                        if (top < 10) {
+                            top = 10
+                        }
+                        vis.ui.tip.style.left = `${left}px`
+                        vis.ui.tip.style.top = `${top}px`
+                        vis.ui.tip.classList.add('active')
+                        d3.event.stopPropagation()
+                    }
 				})
 				.on('mouseout', function(d) {		
 					vis.delayHideTip
