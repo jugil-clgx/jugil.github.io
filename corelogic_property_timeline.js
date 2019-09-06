@@ -1019,7 +1019,7 @@
 					return vis.topTooltipPath(year_width - 8, result, offset, radius)
 				});
 			
-			const chart_valueIcons = canvas.selectAll('.valueTextIcon').data(events);
+			/*const chart_valueIcons = canvas.selectAll('.valueTextIcon').data(events);
 			chart_valueIcons.enter()
 				.append('g')
 				.style('opacity', 0)
@@ -1037,14 +1037,13 @@
 				.attr('y', eventScale)
 				.style('opacity', 0)
 				.text(d => {
-					//const result =  d[columns.event_value].includes('Flood') == true ? '\uf0c2' : d[columns.event_value].includes('Lightning') == true ? '\uf0e7': '\uf1c1'
-					const result = ""
+					const result =  d[columns.event_value].includes('Flood') == true ? '\uf0c2' : d[columns.event_value].includes('Lightning') == true ? '\uf0e7': '\uf1c1'
 					return result
 				})
 				.style('fill',d => {
 					const result =  d[columns.event_value].includes('Flood') == true || d[columns.event_value].includes('Lightning') == true ? '#ff0000': d[columns.event_hover].includes('pdf') == true ? '#007faa' :'#767676'
 					return result
-				});
+				});*/
 			
 			const chart_valueLabels = canvas.selectAll('.valueText').data(events);
 			chart_valueLabels.enter()
