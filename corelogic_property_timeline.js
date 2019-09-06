@@ -599,9 +599,11 @@
 				const year = getEventYear(d);
 				//var index = _.findIndex(indexArr,{'year': year})
 				var index = -1;
-				for (let i = 0; i <= indexArr.length; i++) {
-					if(indexArr[i].year == year){
-						index = i;
+				if(indexArr.length > 0){
+					for (let i = 0; i < indexArr.length; i++) {
+						if(indexArr[i].year == year){
+							index = i;
+						}
 					}
 				}
 				if (index > -1) {
