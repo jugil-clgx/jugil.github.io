@@ -364,13 +364,13 @@
 				}
 				
 				svg.property-events .valueTextIcon {
-					text-anchor: end;
+					text-anchor: start;
 					font-weight: bold;
 					font-family: FontAwesome;
 				}
 				
 				svg.property-events .valueText {
-					text-anchor: end;
+					text-anchor: start;
 					font-weight: bold;
 					font-family: Lato;
 				}
