@@ -712,7 +712,7 @@
 			lines.enter()
 				.append('path')
 				.attr('class', 'connector')
-				.attr('d', drawLine());
+				.attr('d', vis.drawLine());
 		},
 	
 		drawOwnershipConnectors(canvas, index, xscale, y_top, y_bottom) {
@@ -730,7 +730,7 @@
 			lines.enter()
 				.append('path')
 				.attr('class', 'connector')
-				.attr('d', drawLine());
+				.attr('d', vis.drawLine());
 		},
 
         drawEventLabels(canvas, events, className, xscale, y_origin) {
