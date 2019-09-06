@@ -1009,7 +1009,7 @@
 				.append('path')
 				.attr('d', d => {
 					const result = (event_label_height * d.events.length) + 20
-					return topTooltipPath(year_width - 8, result, offset, radius)
+					return vis.topTooltipPath(year_width - 8, result, offset, radius)
 				});
 			
 			const chart_valueIcons = canvas.selectAll('.valueTextIcon').data(events);
@@ -1074,6 +1074,23 @@
 					.style("opacity", 0);
 				})
 				;
+		},
+		
+		showTip(innerHTML){
+			var tip = d3.select('#tip');
+			vis.cancelHideTip()
+			var left = d3.event.pageX;
+			var top = d3.event.pageY - 130;
+
+			tip.transition()		
+				.duration(200)
+				.attr('class', 'tip active')
+				.style("opacity", 1);
+			
+			tip = d3.select('#tip')
+				.html(innerHTML)	
+				.style("left", left + "px")		
+				.style("top", top + "px");
 		},
 
         hideTip() {
@@ -1312,7 +1329,7 @@
 
             // draw connectors for owner events
             const owner_index = vis.getEventIndex(owner_events)
-            vis.drawConnectors(vis.ui.owner_events, owner_index, vis.xscale, 28, owner_height - event_label_bottom_margin)
+            vis.drawOwnershipConnectors(vis.ui.owner_events, owner_index, vis.xscale, 28, owner_height - event_label_bottom_margin)
 
             // draw connectors for loan events
             const loan_index = vis.getEventIndex(loan_events)
@@ -1321,7 +1338,7 @@
             Object.keys(loan_index).forEach(key => {
                 loan_index[key] = property_index[key] || []
             })
-            vis.drawConnectors(vis.ui.property_events, loan_index, vis.xscale, 5, property_height - event_label_bottom_margin)
+            vis.drawPropertyConnectors(vis.ui.property_events, loan_index, vis.xscale, 5, property_height - event_label_bottom_margin)
 
             // scroll to end
             vis.scrollToEnd(vis.width)
