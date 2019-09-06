@@ -1052,7 +1052,7 @@
 				.attr('class', 'valueX')
 				.attr('transform',d => {
 					const date = getYearStart(d)
-					return 'translate(-45 ,0)'
+					return 'translate(-57 ,0)'
 				})
 				.style('opacity', 0)
 				.append('text')
