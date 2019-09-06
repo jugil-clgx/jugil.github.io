@@ -397,6 +397,15 @@
                 .tip p {
                     margin: 10px 0;
                 }
+				.fa-cloud:before{
+					content:"\f0c2"
+				}
+				.fa-bolt:before{
+					content:"\f0e7"
+				}
+				.fa-file-pdf-o:before{
+					content:"\f1c1"
+				}
             `
         },
 
@@ -1028,7 +1037,8 @@
 				.attr('y', eventScale)
 				.style('opacity', 0)
 				.text(d => {
-					const result =  d[columns.event_value].includes('Flood') == true ? '\uf0c2' : d[columns.event_value].includes('Lightning') == true ? '\uf0e7': '\uf1c1'
+					//const result =  d[columns.event_value].includes('Flood') == true ? '\uf0c2' : d[columns.event_value].includes('Lightning') == true ? '\uf0e7': '\uf1c1'
+					const result = ""
 					return result
 				})
 				.style('fill',d => {
