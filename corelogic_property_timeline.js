@@ -23,7 +23,7 @@
 
     // data massager
     function massageData(input_data) {
-        //log('input_data', input_data)
+        log('input_data', input_data)
         window.input_data = input_data
         const events = (
             input_data
@@ -36,7 +36,7 @@
                     return mapped
                 })
         )
-        //log('events', events)
+        log('events', events)
         events.sort(sortByDateAscending)
         return events
     }
@@ -165,7 +165,6 @@
                     margin: 0;
                     padding: 0;
                 }
-
                 .visualization {
                     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                     font-size: 12px;
@@ -174,13 +173,11 @@
                     width: 100%;
                     overflow: hidden;
                 }
-
                 .pane {
                     overflow-x: scroll;
                     position: relative;
                     padding-left: 150px;
                 }
-
                 .chart-nav {
                     position: absolute;
                     box-sizing: border-box;
@@ -236,12 +233,12 @@
                     color: rgba(255, 255, 255, 0.7);
                 }
                 .chart-nav li.active {
-                    color: hsla(39, 75%, 60%, 1.00);
+                    color: white;
                 }
                 .chart-nav li.active::before {
-                    background-color: hsla(39, 75%, 60%, 1.00);
+                    background-color: #007faa;
+					color: white;
                 }
-
                 .labels {
                     position: fixed;
                     left: 0;
@@ -249,7 +246,6 @@
                     width: 120px;
                     box-sizing: border-box;
                     padding-top: ${header_height}px;
-
                     display: flex;
                     flex-direction: column;
                     text-align: right;
@@ -265,7 +261,6 @@
                     justify-content: flex-end;
                     padding-bottom: 3px;
                 }
-
                 .labels .loan {
                     height: ${loan_height}px;
                 }
@@ -275,7 +270,6 @@
                 .labels .owner {
                     height: ${owner_height}px;
                 }
-
                 .legend {
                     position: fixed;
                     right: 0;
@@ -285,17 +279,14 @@
                     background-color: #252827;
                     height: ${header_height + loan_height + property_height + owner_height + footer_height}px;
                 }
-
                 svg.legend-labels {
                     fill: #ccc;
                     margin-top: ${header_height + loan_height}px;
                 }
-
                 svg.canvas {
                     fill: #ccc;
                     text-anchor: middle;
                 }
-
                 .year-dot {
                     stroke: #ccc;
                     stroke-width: 3px;
@@ -311,7 +302,6 @@
                     font-weight: bold;
                     font-style: italic;
                 }
-
                 svg.bar-chart .bar {
                     fill: #a87c2b;
                     stroke: black;
@@ -323,19 +313,17 @@
                 svg.bar-chart .line {
                     fill: rgba(255, 255, 255, 0.1);
                 }
-
                 svg.loan-events .line {
                     fill: #1d1d1d;
                 }
                 svg.loan-events .period-line {
-                    fill: #155af7;
+                    fill: #007faa;
                 }
                 .loan-dot {
-                    stroke: #155af7;
+                    stroke: #007faa;
                     stroke-width: 3px;
                     fill: #252827;
                 }
-
                 svg.owner-events .line {
                     fill: rgba(255, 255, 255, 0.2);
                     fill: #515352;
@@ -380,12 +368,11 @@
                 .tip p {
                     margin: 10px 0;
                 }
-
             `
         },
 
         create(element, settings) {
-            //log('create')
+            log('create')
             element.classList.add('visualization')
 
             const style = document.createElement('style')
@@ -558,8 +545,8 @@
         },
 
         drawPeriods(canvas, periods, className, xscale, bottom) {
-            canvas.selectAll(`.${className}`).remove()
             const period_lines = canvas.selectAll(`.${className}`).data(periods)
+            period_lines.exit().remove()
             period_lines.enter()
                 .append('rect')
                 .attr('class', className)
@@ -579,8 +566,8 @@
         },
 
         drawEventDots(canvas, events, className, xscale, bottom) {
-            canvas.selectAll(`.${className}`).remove()
             const dots = canvas.selectAll(`.${className}`).data(events)
+            dots.exit().remove()
             dots.enter()
                 .append('circle')
                 .attr('class', className)
@@ -604,6 +591,27 @@
             })
             return index
         },
+		
+		getEventArray(events) {
+			// create hash of events, indexed by year
+			const indexArr = [];
+			events.forEach(d => {
+				const year = getEventYear(d);
+				var index = _.findIndex(indexArr,{'year': year})
+				if (index > -1) {
+					indexArr[index].events.push(d)
+					indexArr[index].eventValues.push(d[columns.event_value])
+				} else {
+					var evt = []
+					evt.push(d)
+					var evtValue = []
+					evtValue.push(d[columns.event_value])
+					indexArr.push({'year': year, 'events': evt, 'eventValues': evtValue})
+				}
+				
+			})
+			return indexArr
+		},
 
         drawLine() {
             return (
@@ -612,6 +620,25 @@
                     .y(d => d.y)
             )
         },
+		
+		topTooltipPath(width, height, offset, radius) {
+			const left = -width / 2
+			const right = width / 2
+			const top = -offset - height
+			const bottom = -offset
+			return `M 0,0 
+				L ${-offset},${bottom} 
+				H ${left + radius}
+				Q ${left},${bottom} ${left},${bottom - radius}  
+				V ${top + radius}   
+				Q ${left},${top} ${left + radius},${top}
+				H ${right - radius}
+				Q ${right},${top} ${right},${top + radius}
+				V ${bottom - radius}
+				Q ${right},${bottom} ${right - radius},${bottom}
+				H ${offset} 
+				L 0,0 z`
+		},
 
         drawConnectors(canvas, index, xscale, y_top, y_bottom) {
             const line_data = Object.keys(index).map(year => {
@@ -622,14 +649,50 @@
                     { x: xscale(date.getTime()), y: y_bottom - (events.length * event_label_height) + 5 },
                 ]
             })
-            canvas.selectAll('.connector').remove()
             const lines = canvas.selectAll('.connector').data(line_data)
             const lineFunction = vis.drawLine()
+            lines.exit().remove()
             lines.enter()
                 .append('path')
                 .attr('class', 'connector')
                 .attr('d', lineFunction)
         },
+
+		drawPropertyConnectors(canvas, index, xscale, y_top, y_bottom) {
+			const line_data = Object.keys(index).map(year => {
+				const events = index[year];
+				const date = convertYearStringToDate(year);
+				return [
+					{ x: xscale(date.getTime()), y: y_top },
+					{ x: xscale(date.getTime()), y: y_bottom - (events.length > 0 ? 25 : 0 ) + 5},
+				];
+			})
+			canvas.selectAll('.connector').remove();
+			const lines = canvas.selectAll('.connector').data(line_data);
+
+			lines.enter()
+				.append('path')
+				.attr('class', 'connector')
+				.attr('d', drawLine());
+		},
+	
+		drawOwnershipConnectors(canvas, index, xscale, y_top, y_bottom) {
+			const line_data = Object.keys(index).map(year => {
+				const events = index[year];
+				const date = convertYearStringToDate(year);
+				return [
+					{ x: xscale(date.getTime()), y: y_top },
+					{ x: xscale(date.getTime()), y: y_bottom - (events.length * event_label_height) + 5 },
+				];
+			})
+			canvas.selectAll('.connector').remove();
+			const lines = canvas.selectAll('.connector').data(line_data);
+
+			lines.enter()
+				.append('path')
+				.attr('class', 'connector')
+				.attr('d', drawLine());
+		},
 
         drawEventLabels(canvas, events, className, xscale, y_origin) {
             const index = vis.getEventIndex(events)
@@ -641,10 +704,8 @@
                 return y_origin - offset
             }
 
-            canvas.selectAll(`.${className}`).remove()
-
             const labels = canvas.selectAll(`.${className}`).data(events)
-
+            labels.exit().remove()
             labels.enter()
                 .append('text')
                 .attr('class', className)
@@ -676,6 +737,304 @@
                 })
                 .on('mouseout', vis.delayHideTip)
         },
+		
+		drawEventBox(canvas, events, className, xscale, y_origin){
+			const index = vis.getEventIndex(events)
+			const indexArr = vis.getEventArray(events)
+			const bar_width = year_width - 30
+			const offset = 6
+			const radius = 5
+			
+			var tip = d3.select('#tip')
+			canvas.selectAll('.'+className).remove()
+					
+			const eventScale = (d) => {
+				const year = getEventYear(d)
+				const labels = index[year]
+				const offset = event_label_height * labels.indexOf(d)
+				return 130 - offset
+			}
+			
+			const chart_tooltips = canvas.selectAll('.recordTooltip').data(indexArr)
+			chart_tooltips.enter()
+				.append('g')
+				.attr('transform',d => {
+					const date = getYearStart(d.events[0])
+					return 'translate('+ (xscale(date.getTime())) + ',184)'
+				})
+				.append('path')
+				.attr('d', vis.topTooltipPath(bar_width, 25, offset, radius))
+				.attr('class', 'recordTooltip')
+				.on('click',function(d){
+					canvas.selectAll('.recordTooltip')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.recordText')
+						.transition()		
+						.duration(200)	
+						.style('opacity', 0);
+					canvas.selectAll('.recordClose')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.recordCloseText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.valueTextIcon')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.valueText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.valueTooltip')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.valueX')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.valueG')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1)
+				})
+			
+			const chart_text = canvas.selectAll('.recordText').data(indexArr)
+			chart_text.enter()
+				.append('text')
+				.attr('class', 'recordText')
+				.attr('x', d => {
+					const date = getYearStart(d.events[0])
+					return xscale(date.getTime())
+				})
+				.attr('y', 170)
+				.text(d => {
+					var eventTextVal = "Records".concat(" - ", d.events.length, "")
+					return eventTextVal
+				})
+				.on('click',function(d){
+					canvas.selectAll('.recordTooltip')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.recordText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.recordClose')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.recordCloseText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.valueTextIcon')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.valueText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.valueTooltip')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.valueX')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.valueG')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+				});			
+			
+			const chart_closeCircle = canvas.selectAll('.recordClose').data(indexArr)
+			chart_closeCircle.enter()
+				.append('circle')
+				.attr('class','recordClose')
+				.attr('cx', d => {
+					const date = getYearStart(d.events[0])
+					return xscale(date.getTime())
+				})
+				.attr('cy', 168)
+				.attr('r', 15)
+				.style('fill', '#007faa')
+				.style('opacity', 0)
+				.on('click',function(d){
+					canvas.selectAll('.valueTooltip')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.valueX')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.valueG')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.valueTextIcon')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.valueText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.recordClose')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.recordCloseText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.recordTooltip')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.recordText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+				});
+
+			const chart_closeText = canvas.selectAll('.recordCloseText').data(indexArr);
+			chart_closeText.enter()
+				.append('text')
+				.attr('class', 'recordCloseText')
+				.attr('x', d => {
+					const date = getYearStart(d.events[0])
+					return xscale(date.getTime())
+				})
+				.attr('y', 174)
+				.style('opacity', 0)
+				.text('X')
+				.on('click',function(d){
+					canvas.selectAll('.valueTooltip')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.valueX')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.valueG')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.valueTextIcon')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.valueText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.recordClose')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.recordCloseText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 0);
+					canvas.selectAll('.recordTooltip')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+					canvas.selectAll('.recordText')
+						.transition()		
+						.duration(200)
+						.style('opacity', 1);
+				});
+			
+			const chart_valueTooltips = canvas.selectAll('.valueTooltip').data(indexArr);
+			chart_valueTooltips.enter()
+				.append('g')
+				.style('opacity', 0)
+				.attr('class', 'valueTooltip')
+				.attr('transform',d => {
+					const date = getYearStart(d.events[0])
+					return 'translate('+ (xscale(date.getTime())) + ',150)'
+				})
+				.append('path')
+				.attr('d', d => {
+					const result = (event_label_height * d.events.length) + 20
+					return topTooltipPath(year_width - 8, result, offset, radius)
+				});
+			
+			const chart_valueIcons = canvas.selectAll('.valueTextIcon').data(events);
+			chart_valueIcons.enter()
+				.append('g')
+				.style('opacity', 0)
+				.attr('class', 'valueG')
+				.attr('transform',d => {
+					const date = getYearStart(d)
+					return 'translate(-60 ,0)'
+				})
+				.append('text')
+				.attr('class', 'valueTextIcon')
+				.attr('x', d => {
+					const date = getYearStart(d)
+					return xscale(date.getTime())
+				})
+				.attr('y', eventScale)
+				.style('opacity', 0)
+				.text(d => {
+					const result =  d[columns.event_value].includes('Flood') == true ? '\uf0c2' : d[columns.event_value].includes('Lightning') == true ? '\uf0e7': '\uf1c1'
+					return result
+				})
+				.style('fill',d => {
+					const result =  d[columns.event_value].includes('Flood') == true || d[columns.event_value].includes('Lightning') == true ? '#ff0000': d[columns.event_hover].includes('pdf') == true ? '#007faa' :'#767676'
+					return result
+				});
+			
+			const chart_valueLabels = canvas.selectAll('.valueText').data(events);
+			chart_valueLabels.enter()
+				.append('g')
+				.style('opacity', 0)
+				.attr('class', 'valueX')
+				.attr('transform',d => {
+					const date = getYearStart(d)
+					return 'translate(-45 ,0)'
+				})
+				.style('opacity', 0)
+				.append('text')
+				.attr('class', 'valueText')
+				.attr('x', d => {
+					const date = getYearStart(d)
+					return xscale(date.getTime())
+				})
+				.attr('y', eventScale)
+				.text(d => {
+					const result = d[columns.event_value]
+					return result
+				})
+				.style('fill',d => {
+					const result =  d[columns.event_value].includes('Flood') == true || d[columns.event_value].includes('Lightning') == true ? '#ff0000': d[columns.event_hover].includes('pdf') == true ? '#007faa' :'#767676'
+					return result
+				})			
+				.on('mouseover', function(d) {
+					if (d[columns.event_hover]) {
+						vis.showTip(d[columns.event_hover]);
+					}
+				})
+				.on('mouseout', function(d) {		
+					vis.ui.tip.transition()		
+					.duration(3000)		
+					.style("opacity", 0);
+				})
+				;
+		},
 
         hideTip() {
             clearTimeout(vis.tip_timer)
@@ -703,22 +1062,22 @@
         },
 
         drawChart() {
-            //log('drawChart')
+            log('drawChart')
             const chart_type = chart_types.find(n => n.type === vis.chart_type)
-            //log('chart_type', chart_type)
+            log('chart_type', chart_type)
 
             const events = vis.data.filter(d => d[columns.event_type] === chart_type.type)
-            //log('events', events)
+            log('events', events)
 
             const values = events.map(d => Number(d[columns.event_value]))
             const max_value = Math.max.apply(Math, values)
-            //log('max_value', max_value)
+            log('max_value', max_value)
             const domain_end = vis.getChartDomainEnd(chart_type, max_value)
-            //log('domain_end', domain_end)
+            log('domain_end', domain_end)
 
             // empty the canvas
-            // vis.ui.bar_chart.selectAll('*').remove()
-            // vis.ui.legend_labels.selectAll('*').remove()
+            vis.ui.bar_chart.selectAll('*').remove()
+            vis.ui.legend_labels.selectAll('*').remove()
 
             const chartYScale = (
                 d3.scaleLinear()
@@ -726,9 +1085,9 @@
                     .range([0, chart_height])
             )
 
-            vis.ui.bar_chart.selectAll('.bar').remove()
             const chart_blocks = vis.ui.bar_chart.selectAll('.bar').data(events)
             const bar_width = vis.year_width - 10
+            chart_blocks.exit().remove()
             chart_blocks.enter()
                 .append('rect')
                 .attr('class', 'bar')
@@ -740,12 +1099,12 @@
                 .text(d => chart_type.valueFormatter(Number(d[columns.event_value])))
 
             const chart_division = domain_end / 5
-            //log('chart_division', chart_division)
+            log('chart_division', chart_division)
             const divisions = [1, 2, 3, 4].map(n => n * chart_division)
-            //log('divisions', divisions)
+            log('divisions', divisions)
 
-            vis.ui.bar_chart.selectAll('.line').remove()
             const chart_lines = vis.ui.bar_chart.selectAll('.line').data(divisions)
+            chart_lines.exit().remove()
             chart_lines.enter()
                 .append('rect')
                 .attr('class', 'line')
@@ -754,8 +1113,8 @@
                 .attr('x', 0)
                 .attr('y', d => chart_height - chartYScale(d))
 
-            vis.ui.legend_labels.selectAll('.label').remove()
             const legend_labels = vis.ui.legend_labels.selectAll('.label').data(divisions)
+            legend_labels.exit().remove()
             legend_labels.enter()
                 .append('text')
                 .attr('class', 'label')
@@ -765,9 +1124,9 @@
         },
 
         drawOwnerStartMarkers(canvas, periods, year_width, xscale, height) {
-            canvas.selectAll('.owner-start-marker').remove()
             const blocks = canvas.selectAll('.owner-start-marker').data(periods)
             const bar_width = year_width
+            blocks.exit().remove()
             blocks.enter()
                 .append('rect')
                 .attr('class', 'owner-start-marker')
@@ -782,7 +1141,7 @@
         },
 
         update(input_data, element, settings, resp) {
-            //log('update')
+            log('update')
             vis.updateStyles(vis.ui.style, settings)
 
             vis.data = massageData(input_data)
@@ -795,11 +1154,11 @@
                     .map(getEventYear)
                     .filter(unique)
             )
-            //log('years', years)
+            // log('years', years)
 
             const start = Math.min.apply(Math, years)
             const end = Math.max.apply(Math, years)
-            //log(start, end)
+            // log(start, end)
 
             const range = end - start
             // log(range)
@@ -812,15 +1171,14 @@
             vis.year_width = 140
             // pad by 1/2 year on each end
             vis.width = (range + 2) * vis.year_width
-            //log('vis.width', vis.width)
             vis.ui.canvas.attr('width', vis.width).attr('viewbox', `0 0 ${vis.width} ${canvas_height}`)
 
             const one_year = 365 * 24 * 60 * 60 * 1000
             // const half_year = one_year / 2
             const domain_start = year_ticks[0].getTime() - one_year
             const domain_end = year_ticks[year_ticks.length - 1].getTime() + one_year
-            //log('domain_start', domain_start)
-            //log('domain_end', domain_end)
+            log('domain_start', domain_start)
+            log('domain_end', domain_end)
 
             const whole_period = {
                 start: new Date(domain_start),
@@ -885,7 +1243,7 @@
             vis.drawPeriods(vis.ui.property_events, [whole_period], 'line', vis.xscale, property_height)
 
             // add a circle for each year
-            // vis.drawEventDots(vis.ui.property_events, year_events, 'year-dot', vis.xscale, property_height)
+            vis.drawEventDots(vis.ui.property_events, year_events, 'year-dot', vis.xscale, property_height)
 
             // add a text label for each year
             vis.drawEventLabels(vis.ui.year_labels, year_events, 'year-label', vis.xscale, year_label_height - 13)
@@ -893,8 +1251,8 @@
 
             /* ========== PROPERTY EVENTS ========== */
             // draw property event labels
-            vis.drawEventLabels(vis.ui.property_events, property_events, 'event-label', vis.xscale, property_height - event_label_bottom_margin)
-
+            //vis.drawEventLabels(vis.ui.property_events, property_events, 'event-label', vis.xscale, property_height - event_label_bottom_margin)
+			vis.drawEventBox(vis.ui.property_events, property_events, 'event-box', vis.xscale, property_height - event_label_bottom_margin);
 
             /* ========== OWNER EVENTS ========== */
             // draw the horizontal line for the ownerline
