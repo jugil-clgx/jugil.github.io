@@ -747,6 +747,7 @@
         },
 		
 		drawEventBox(canvas, events, className, xscale, y_origin){
+			const year_width = 140
 			const index = vis.getEventIndex(events)
 			const indexArr = vis.getEventArray(events)
 			const bar_width = year_width - 30
