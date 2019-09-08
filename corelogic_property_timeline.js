@@ -816,39 +816,39 @@
 					canvas.selectAll('.recordTooltip')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.recordText')
 						.transition()		
 						.duration(200)	
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.recordClose')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.recordCloseText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.valueTextIcon')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.valueText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.valueTooltip')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.valueX')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.valueG')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible')
+						.style('opacity', 1)
 				})
 			
 			const chart_text = canvas.selectAll('.recordText').data(indexArr)
@@ -868,39 +868,39 @@
 					canvas.selectAll('.recordTooltip')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.recordText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.recordClose')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.recordCloseText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.valueTextIcon')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.valueText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.valueTooltip')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.valueX')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.valueG')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 				});			
 			
 			const chart_closeCircle = canvas.selectAll('.recordClose').data(indexArr)
@@ -914,44 +914,44 @@
 				.attr('cy', 168)
 				.attr('r', 15)
 				.style('fill', '#007faa')
-				.style('visibility ', 'hidden')
+				.style('opacity', 0)
 				.on('click',function(d){
 					canvas.selectAll('.valueTooltip')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.valueX')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.valueG')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.valueTextIcon')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.valueText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.recordClose')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.recordCloseText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.recordTooltip')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.recordText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 				});
 
 			const chart_closeText = canvas.selectAll('.recordCloseText').data(indexArr);
@@ -963,51 +963,51 @@
 					return xscale(date.getTime())
 				})
 				.attr('y', 174)
-				.style('visibility ', 'hidden')
+				.style('opacity', 0)
 				.text('X')
 				.on('click',function(d){
 					canvas.selectAll('.valueTooltip')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.valueX')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.valueG')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.valueTextIcon')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.valueText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.recordClose')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.recordCloseText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'hidden');
+						.style('opacity', 0);
 					canvas.selectAll('.recordTooltip')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 					canvas.selectAll('.recordText')
 						.transition()		
 						.duration(200)
-						.style('visibility ', 'visible');
+						.style('opacity', 1);
 				});
 			
 			const chart_valueTooltips = canvas.selectAll('.valueTooltip').data(indexArr);
 			chart_valueTooltips.enter()
 				.append('g')
-				.style('visibility ', 'hidden')
+				.style('opacity', 0)
 				.attr('class', 'valueTooltip')
 				.attr('transform',d => {
 					const date = getYearStart(d.events[0])
@@ -1022,7 +1022,7 @@
 			/*const chart_valueIcons = canvas.selectAll('.valueTextIcon').data(events);
 			chart_valueIcons.enter()
 				.append('g')
-				.style('visibility ', 'hidden')
+				.style('opacity', 0)
 				.attr('class', 'valueG')
 				.attr('transform',d => {
 					const date = getYearStart(d)
@@ -1035,7 +1035,7 @@
 					return xscale(date.getTime())
 				})
 				.attr('y', eventScale)
-				.style('visibility ', 'hidden')
+				.style('opacity', 0)
 				.text(d => {
 					const result =  d[columns.event_value].includes('Flood') == true ? '\uf0c2' : d[columns.event_value].includes('Lightning') == true ? '\uf0e7': '\uf1c1'
 					return result
@@ -1048,13 +1048,13 @@
 			const chart_valueLabels = canvas.selectAll('.valueText').data(events);
 			chart_valueLabels.enter()
 				.append('g')
-				.style('visibility ', 'hidden')
+				.style('opacity', 0)
 				.attr('class', 'valueX')
 				.attr('transform',d => {
 					const date = getYearStart(d)
 					return 'translate(-57 ,0)'
 				})
-				.style('visibility ', 'hidden')
+				.style('opacity', 0)
 				.append('text')
 				.attr('class', 'valueText')
 				.attr('x', d => {
