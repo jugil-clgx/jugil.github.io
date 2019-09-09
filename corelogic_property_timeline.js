@@ -846,7 +846,8 @@
 					canvas.selectAll('.valueX')
 						.transition()		
 						.duration(200)
-						.style('opacity', 1);
+						.style('opacity', 1)
+						.style('display', 'block');
 					canvas.selectAll('.valueG')
 						.transition()		
 						.duration(200)
@@ -900,7 +901,8 @@
 					canvas.selectAll('.valueX')
 						.transition()		
 						.duration(200)
-						.style('opacity', 1);
+						.style('opacity', 1)
+						.style('display', 'block');
 					canvas.selectAll('.valueG')
 						.transition()		
 						.duration(200)
@@ -923,15 +925,18 @@
 					canvas.selectAll('.valueTooltip')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.valueX')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.valueG')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.valueTextIcon')
 						.transition()		
 						.duration(200)
@@ -949,15 +954,18 @@
 					canvas.selectAll('.recordCloseText')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.recordTooltip')
 						.transition()		
 						.duration(200)
-						.style('opacity', 1);
+						.style('opacity', 1)
+						.style('display', 'block');
 					canvas.selectAll('.recordText')
 						.transition()		
 						.duration(200)
-						.style('opacity', 1);
+						.style('opacity', 1)
+						.style('display', 'block');
 				});
 
 			const chart_closeText = canvas.selectAll('.recordCloseText').data(indexArr);
@@ -975,15 +983,18 @@
 					canvas.selectAll('.valueTooltip')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.valueX')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.valueG')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.valueTextIcon')
 						.transition()		
 						.duration(200)
@@ -997,7 +1008,8 @@
 					canvas.selectAll('.recordClose')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.recordCloseText')
 						.transition()		
 						.duration(200)
@@ -1005,17 +1017,20 @@
 					canvas.selectAll('.recordTooltip')
 						.transition()		
 						.duration(200)
-						.style('opacity', 1);
+						.style('opacity', 1)
+						.style('display', 'block');
 					canvas.selectAll('.recordText')
 						.transition()		
 						.duration(200)
-						.style('opacity', 1);
+						.style('opacity', 1)
+						.style('display', 'block');
 				});
 			
 			const chart_valueTooltips = canvas.selectAll('.valueTooltip').data(indexArr);
 			chart_valueTooltips.enter()
 				.append('g')
 				.style('opacity', 0)
+				.style('display', 'none')
 				.attr('class', 'valueTooltip')
 				.attr('transform',d => {
 					const date = getYearStart(d.events[0])
