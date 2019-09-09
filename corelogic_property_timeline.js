@@ -406,7 +406,9 @@
 				.fa-file-pdf-o:before{
 					content:"\f1c1"
 				}
-				
+				::-webkit-scrollbar-track {
+				   background: #212121;
+				}
             `
         },
 
