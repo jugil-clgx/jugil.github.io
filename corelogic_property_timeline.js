@@ -182,13 +182,13 @@
 					height: 20px;
 				}
 				::-webkit-scrollbar-thumb {
-				   background: #3A3A3A;
+				   background: green;
 				}
 				::-webkit-scrollbar-track {
-				   background: red;
+				   background: #212121;
 				}
 				::-webkit-scrollbar-button {
-				   background: #3A3A3A;
+				   background: blue;
 				   height: 20px;
 				}
                 .chart-nav {
