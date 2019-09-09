@@ -1113,10 +1113,6 @@
 				})			
 				.on('mouseover', function(d) {
 					if (d[columns.event_hover]) {
-						console.log('log before iframe')
-						console.log(parent)
-						var iframe = parent.document.getElementById('pdfIFrame')
-						console.log(iframe)
                         vis.cancelHideTip()
                         vis.ui.tip.innerHTML = d[columns.event_hover]
                         const tip = vis.ui.tip.getBoundingClientRect()
@@ -1407,6 +1403,8 @@
 
             // scroll to end
             vis.scrollToEnd(vis.width)
+			log('lookertest')
+			parent.postMessage('lookertest^','*')
         },
 
         scrollToEnd(width) {
