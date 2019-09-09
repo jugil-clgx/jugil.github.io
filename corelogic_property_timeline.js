@@ -169,7 +169,7 @@
                     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
                     font-size: 12px;
                     color: #ccc;
-                    background-color: #252827;
+                    background-color: #212121;
                     width: 100%;
                     overflow: hidden;
                 }
@@ -250,7 +250,7 @@
                     flex-direction: column;
                     text-align: right;
                     padding-right: 20px;
-                    background-color: #252827;
+                    background-color: #212121;
                 }
                 .labels .label {
                     font-size: 14px;
@@ -276,7 +276,7 @@
                     top: 0;
                     width: 50px;
                     box-sizing: border-box;
-                    background-color: #252827;
+                    background-color: #212121;
                     height: ${header_height + loan_height + property_height + owner_height + footer_height}px;
                 }
                 svg.legend-labels {
@@ -290,7 +290,7 @@
                 .year-dot {
                     stroke: #ccc;
                     stroke-width: 3px;
-                    fill: #252827;
+                    fill: #212121;
                 }
                 text {
                     cursor: default;
@@ -322,7 +322,7 @@
                 .loan-dot {
                     stroke: #007faa;
                     stroke-width: 3px;
-                    fill: #252827;
+                    fill: #212121;
                 }
                 svg.owner-events .line {
                     fill: rgba(255, 255, 255, 0.2);
@@ -334,12 +334,12 @@
                 .owner-dot {
                     stroke: #ff8729;
                     stroke-width: 3px;
-                    fill: #252827;
+                    fill: #212121;
                 }
                 .owner-solo-dot {
                     stroke: #515352;
                     stroke-width: 3px;
-                    fill: #252827;
+                    fill: #212121;
                 }
                 .connector {
                     stroke: rgba(255, 255, 255, 0.3);
