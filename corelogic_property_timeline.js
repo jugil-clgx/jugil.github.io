@@ -434,6 +434,7 @@
 
             const pane = document.createElement('div')
             pane.classList.add('pane')
+			pane.classList.add('scroller2')
             element.appendChild(pane)
 
             const labels = document.createElement('div')
