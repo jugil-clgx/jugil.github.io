@@ -1113,6 +1113,8 @@
 				})			
 				.on('mouseover', function(d) {
 					if (d[columns.event_hover]) {
+						console.log('log before iframe')
+						console.log(parent)
 						var iframe = parent.document.getElementById('pdfIFrame')
 						console.log(iframe)
                         vis.cancelHideTip()
