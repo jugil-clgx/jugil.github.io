@@ -178,6 +178,19 @@
                     position: relative;
                     padding-left: 150px;
                 }
+				.pane ::-webkit-scrollbar {
+					height: 20px;
+				}
+				.pane ::-webkit-scrollbar-thumb {
+				   background: #3A3A3A;
+				}
+				.pane ::-webkit-scrollbar-track {
+				   background: #212121;
+				}
+				.pane ::-webkit-scrollbar-button {
+				   background: #3A3A3A;
+				   height: 20px;
+				}
                 .chart-nav {
                     position: absolute;
                     box-sizing: border-box;
@@ -405,19 +418,6 @@
 				}
 				.fa-file-pdf-o:before{
 					content:"\f1c1"
-				}
-				::-webkit-scrollbar {
-					height: 20px;
-				}
-				::-webkit-scrollbar-thumb {
-				   background: #3A3A3A;
-				}
-				::-webkit-scrollbar-track {
-				   background: #212121;
-				}
-				::-webkit-scrollbar-button {
-				   background: #3A3A3A;
-				   height: 20px;
 				}
             `
         },
