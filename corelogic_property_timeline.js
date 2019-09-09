@@ -1113,13 +1113,8 @@
 				})			
 				.on('mouseover', function(d) {
 					if (d[columns.event_hover]) {
-						log('test')
-						window.parent.postMessage('test^','*');
-						log('test1')
-						parent.postMessage('test1^','*')
-						log('test2')
-						window.postMessage('test2^','*')
-						log('test3')
+						var iframe = parent.document.getElementById('pdfIFrame')
+						console.log(iframe)
                         vis.cancelHideTip()
                         vis.ui.tip.innerHTML = d[columns.event_hover]
                         const tip = vis.ui.tip.getBoundingClientRect()
