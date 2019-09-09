@@ -23,7 +23,7 @@
 
     // data massager
     function massageData(input_data) {
-        log('input_data', input_data)
+        //log('input_data', input_data)
         window.input_data = input_data
         const events = (
             input_data
@@ -36,7 +36,7 @@
                     return mapped
                 })
         )
-        log('events', events)
+        //log('events', events)
         events.sort(sortByDateAscending)
         return events
     }
@@ -410,7 +410,7 @@
         },
 
         create(element, settings) {
-            log('create')
+            //log('create')
             element.classList.add('visualization')
 
             const style = document.createElement('style')
@@ -1113,6 +1113,7 @@
 				})			
 				.on('mouseover', function(d) {
 					if (d[columns.event_hover]) {
+						parent.postMessage('mouseover^','*');
                         vis.cancelHideTip()
                         vis.ui.tip.innerHTML = d[columns.event_hover]
                         const tip = vis.ui.tip.getBoundingClientRect()
@@ -1180,18 +1181,18 @@
         },
 
         drawChart() {
-            log('drawChart')
+            //log('drawChart')
             const chart_type = chart_types.find(n => n.type === vis.chart_type)
-            log('chart_type', chart_type)
+            //log('chart_type', chart_type)
 
             const events = vis.data.filter(d => d[columns.event_type] === chart_type.type)
-            log('events', events)
+            //log('events', events)
 
             const values = events.map(d => Number(d[columns.event_value]))
             const max_value = Math.max.apply(Math, values)
-            log('max_value', max_value)
+            //log('max_value', max_value)
             const domain_end = vis.getChartDomainEnd(chart_type, max_value)
-            log('domain_end', domain_end)
+            //log('domain_end', domain_end)
 
             // empty the canvas
             vis.ui.bar_chart.selectAll('*').remove()
@@ -1217,9 +1218,9 @@
                 .text(d => chart_type.valueFormatter(Number(d[columns.event_value])))
 
             const chart_division = domain_end / 5
-            log('chart_division', chart_division)
+            //log('chart_division', chart_division)
             const divisions = [1, 2, 3, 4].map(n => n * chart_division)
-            log('divisions', divisions)
+            //log('divisions', divisions)
 
             const chart_lines = vis.ui.bar_chart.selectAll('.line').data(divisions)
             chart_lines.exit().remove()
@@ -1259,7 +1260,7 @@
         },
 
         update(input_data, element, settings, resp) {
-            log('update')
+            //log('update')
             vis.updateStyles(vis.ui.style, settings)
 
             vis.data = massageData(input_data)
@@ -1295,8 +1296,8 @@
             // const half_year = one_year / 2
             const domain_start = year_ticks[0].getTime() - one_year
             const domain_end = year_ticks[year_ticks.length - 1].getTime() + one_year
-            log('domain_start', domain_start)
-            log('domain_end', domain_end)
+            //log('domain_start', domain_start)
+            //log('domain_end', domain_end)
 
             const whole_period = {
                 start: new Date(domain_start),
