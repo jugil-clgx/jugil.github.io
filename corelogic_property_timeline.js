@@ -178,19 +178,6 @@
                     position: relative;
                     padding-left: 150px;
                 }
-				::-webkit-scrollbar {
-					height: 20px;
-				}
-				::-webkit-scrollbar-thumb {
-				   background: green;
-				}
-				::-webkit-scrollbar-track {
-				   background: #212121;
-				}
-				::-webkit-scrollbar-button {
-				   background: blue;
-				   height: 20px;
-				}
                 .chart-nav {
                     position: absolute;
                     box-sizing: border-box;
