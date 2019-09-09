@@ -406,8 +406,15 @@
 				.fa-file-pdf-o:before{
 					content:"\f1c1"
 				}
+				::-webkit-scrollbar-thumb {
+				   background: #3A3A3A;
+				}
 				::-webkit-scrollbar-track {
 				   background: #212121;
+				}
+				::-webkit-scrollbar-button {
+				   background: #3A3A3A;
+				   height: 20px;
 				}
             `
         },
