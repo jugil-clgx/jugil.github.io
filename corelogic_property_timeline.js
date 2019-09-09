@@ -406,17 +406,16 @@
 				.fa-file-pdf-o:before{
 					content:"\f1c1"
 				}
-				 .scroller2::-webkit-scrollbar {
-					/width: 20px;/
+				::-webkit-scrollbar {
 					height: 20px
 				}
-				.scroller2::-webkit-scrollbar-thumb {
+				::-webkit-scrollbar-thumb {
 				   background: #000000;
 				}
-				.scroller2::-webkit-scrollbar-track {
+				::-webkit-scrollbar-track {
 				   background: #212121;
 				}
-				.scroller2::-webkit-scrollbar-button {
+				::-webkit-scrollbar-button {
 				   background: #000000;
 				   height: 20px;
 				   border-radius: 50%;
