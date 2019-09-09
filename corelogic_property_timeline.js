@@ -410,15 +410,14 @@
 					height: 20px
 				}
 				::-webkit-scrollbar-thumb {
-				   background: #000000;
+				   background: #3A3A3A;
 				}
 				::-webkit-scrollbar-track {
 				   background: #212121;
 				}
 				::-webkit-scrollbar-button {
-				   background: #000000;
+				   background: #3A3A3A;
 				   height: 20px;
-				   border-radius: 50%;
 				}
             `
         },
@@ -433,7 +432,6 @@
 
             const pane = document.createElement('div')
             pane.classList.add('pane')
-			pane.classList.add('scroller2')
             element.appendChild(pane)
 
             const labels = document.createElement('div')
