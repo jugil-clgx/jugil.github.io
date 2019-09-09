@@ -1113,8 +1113,10 @@
 				})			
 				.on('mouseover', function(d) {
 					if (d[columns.event_hover]) {
-						console.log(parent);
-						parent.postMessage('mouseover^','*');
+						log(parent)
+						log(this)
+						log(window)
+						//parent.postMessage('mouseover^','*');
                         vis.cancelHideTip()
                         vis.ui.tip.innerHTML = d[columns.event_hover]
                         const tip = vis.ui.tip.getBoundingClientRect()
