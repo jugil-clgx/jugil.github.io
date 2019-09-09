@@ -406,16 +406,6 @@
 				.fa-file-pdf-o:before{
 					content:"\f1c1"
 				}
-				.box{
-					display: none;
-					width: 100%;
-				}
-
-				a:hover + .box,.box:hover{
-					display: block;
-					position: relative;
-					z-index: 100;
-				}
             `
         },
 
@@ -774,7 +764,7 @@
                 .on('mouseover', d => {
                     if (d[columns.event_hover]) {
                         vis.cancelHideTip()
-                        vis.ui.tip.innerHTML = d[columns.event_hover] + '<div class="box"><iframe src="https://vizcenter.corelogic.net/visual/assets/11231000029.pdf" width = "500px" height = "500px"></iframe></div>'
+                        vis.ui.tip.innerHTML = d[columns.event_hover]
                         const tip = vis.ui.tip.getBoundingClientRect()
                         const pane = vis.ui.pane.getBoundingClientRect()
                         let left = d3.event.pageX + 10
