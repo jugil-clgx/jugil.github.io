@@ -178,16 +178,16 @@
                     position: relative;
                     padding-left: 150px;
                 }
-				.pane::-webkit-scrollbar {
+				::-webkit-scrollbar {
 					height: 20px;
 				}
-				.pane::-webkit-scrollbar-thumb {
+				::-webkit-scrollbar-thumb {
 				   background: #3A3A3A;
 				}
-				.pane::-webkit-scrollbar-track {
+				::-webkit-scrollbar-track {
 				   background: red;
 				}
-				.pane::-webkit-scrollbar-button {
+				::-webkit-scrollbar-button {
 				   background: #3A3A3A;
 				   height: 20px;
 				}
