@@ -832,11 +832,13 @@
 					canvas.selectAll('.valueTextIcon')
 						.transition()		
 						.duration(200)
-						.style('opacity', 1);
+						.style('opacity', 1)
+						.style('display', 'block');
 					canvas.selectAll('.valueText')
 						.transition()		
 						.duration(200)
-						.style('opacity', 1);
+						.style('opacity', 1)
+						.style('display', 'block');
 					canvas.selectAll('.valueTooltip')
 						.transition()		
 						.duration(200)
@@ -884,11 +886,13 @@
 					canvas.selectAll('.valueTextIcon')
 						.transition()		
 						.duration(200)
-						.style('opacity', 1);
+						.style('opacity', 1)
+						.style('display', 'block');
 					canvas.selectAll('.valueText')
 						.transition()		
 						.duration(200)
-						.style('opacity', 1);
+						.style('opacity', 1)
+						.style('display', 'block');
 					canvas.selectAll('.valueTooltip')
 						.transition()		
 						.duration(200)
@@ -931,11 +935,13 @@
 					canvas.selectAll('.valueTextIcon')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.valueText')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.recordClose')
 						.transition()		
 						.duration(200)
@@ -981,11 +987,13 @@
 					canvas.selectAll('.valueTextIcon')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.valueText')
 						.transition()		
 						.duration(200)
-						.style('opacity', 0);
+						.style('opacity', 0)
+						.style('display', 'none');
 					canvas.selectAll('.recordClose')
 						.transition()		
 						.duration(200)
@@ -1023,6 +1031,7 @@
 			chart_valueIcons.enter()
 				.append('g')
 				.style('opacity', 0)
+				.style('display', 'none')
 				.attr('class', 'valueG')
 				.attr('transform',d => {
 					const date = getYearStart(d)
@@ -1036,6 +1045,7 @@
 				})
 				.attr('y', eventScale)
 				.style('opacity', 0)
+				.style('display', 'none')
 				.text(d => {
 					const result =  d[columns.event_value].includes('Flood') == true ? '\uf0c2' : d[columns.event_value].includes('Lightning') == true ? '\uf0e7': '\uf1c1'
 					return result
@@ -1049,12 +1059,14 @@
 			chart_valueLabels.enter()
 				.append('g')
 				.style('opacity', 0)
+				.style('display', 'none')
 				.attr('class', 'valueX')
 				.attr('transform',d => {
 					const date = getYearStart(d)
 					return 'translate(-57 ,0)'
 				})
 				.style('opacity', 0)
+				.style('display', 'none')
 				.append('text')
 				.attr('class', 'valueText')
 				.attr('x', d => {
