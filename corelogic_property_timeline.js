@@ -419,7 +419,8 @@
             `
         },
 
-				//::-webkit-scrollbar {
+        create(element, settings) {
+			//::-webkit-scrollbar {
 				//	height: 20px
 				//}
 				//::-webkit-scrollbar-thumb {
@@ -432,8 +433,6 @@
 				//   background: #3A3A3A;
 				//   height: 20px;
 				//}
-
-        create(element, settings) {
             //log('create')
             element.classList.add('visualization')
 
